@@ -1,11 +1,18 @@
-<script setup lang="ts"></script>
+<script  lang="ts">
+  import Person from './components/Person.vue';
+  
+  export default {
+    //组件名称
+    name: 'App',
+    //注册组件
+    components: {
+      Person,
+    },
+  }
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <Person />
 </template>
 
 <style scoped></style>
