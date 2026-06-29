@@ -1,35 +1,43 @@
-
-//有时候是会有两个script标签的，vue3中是可以的，vue2中不行，一个是给组件配置的，一个是setup中写的逻辑代码
-//但是也可以安装一个依赖vite-plugin-vue-setup-extend，安装后就可以在setup中写组件的配置了，就不需要两个script标签了
-//这个依赖是开发依赖，所以安装的时候加上 -D，说明是开发依赖，安装后在vite.config.ts中配置一下
-//在vite.config.ts中配置文件中先 import vueSetupExtend from 'vite-plugin-vue-setup-extend'，然后在plugins中添加vueSetupExtend()，就可以了
-//这两个script标签的lang属性可以是ts，也可以是js，vue3中是支持ts的，vue2中不支持ts，但是两个都得一样
-<!-- <script lang="ts">
-  export default {
-    name:'Person',
-  }
-</script>
-
-<script setup lang="ts">
-  let name = '张三'
-  let age = 18
-  let tel = '13800138000'
-  
-  function changeName() {
-    name = '李四'
-  }
-</script> -->
-
-
-//安装依赖完成后，就直接在setup中写组件的配置了，就不需要两个script标签了
+//ref将值类型数据变为响应式，需要变响应式的数据就用ref包裹起来，ref返回的是一个对象，值类型数据存储在value属性中
+//需要使用就用xxx.value的方式访问
 <script setup lang="ts" name="Person">
-  let name = '张三'
-  let age = 18
-  let tel = '13800138000'
-  
+  import { ref,reactive } from 'vue'
+  //ref可以定义值类型数据和引用类型数据，reactive只能定义引用类型数据
+  //ref将对象类型数据转变为响应式的，是请reactive将对象数据变为响应式，再在外面用ref包裹起来，reactive将对象数据变为响应式，再在外面用ref包裹起来，返回的就是一个对象，值类型数据存储在value属性中
+  //reactive的变响应式是深层次的
+
+  let name = ref('张三')
+  let age = ref(18)
+
+  // let car = reactive({
+  //   brand:'宝马',
+  //   price:100,
+  // })
+  let car = ref({
+    brand:'宝马',
+    price:100,
+  })
+
+  // let games = reactive([
+  //   {id:'1',name:'王者荣耀'},
+  //   {id:'2',name:'和平精英'},
+  //   {id:'3',name:'英雄联盟'},
+  // ])
+  let games = ref([
+    {id:'1',name:'王者荣耀'},
+    {id:'2',name:'和平精英'},
+    {id:'3',name:'英雄联盟'},
+  ])
   function changeName() {
-    name = '李四'
+    name.value = '李四'
   }
+  function changeCarPrice() {
+    car.value.price += 10;
+  }
+  function changeFirstGame() {
+    games.value[0].name = '原神'
+  }
+
 </script> 
 
 
@@ -38,8 +46,17 @@
   <div class="person">
     <h1>{{ name }}</h1>
     <p>年龄: {{ age }}</p>
-    <p>电话: {{ tel }}</p>
     <button @click="changeName">更换姓名</button>
+    <br>
+    <h1>{{ car.brand }}</h1>
+    <p>价格: {{ car.price }}</p>
+    <button @click="changeCarPrice">更换价格</button>
+    <br>
+    <h1>游戏列表</h1>
+    <ul>
+      <li v-for="game in games" :key="game.id">{{ game.name }}</li>
+    </ul>
+    <button @click="changeFirstGame">更换第一个游戏</button>
   </div>
 </template>
 
