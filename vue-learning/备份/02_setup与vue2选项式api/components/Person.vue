@@ -5,18 +5,9 @@
   let name = '张三'
   let age = 18
   let tel = '13800138000'
-  
-  function changeName() {
-    name = '李四'
-  }
-
-  //需要return一个对象，里面包含的属性和方法才能在模板中使用
-  return {
-    name,
-    age,
-    tel,
-    changeName
-  }
+  //可以在vue3中写vue2的语法，也可以正常用，并且vue2中可以用this.x来去访问到vue3中setup中定义的变量
+  //但是vue3的setup中是不能用this.x来访问vue2中data中定义的变量的，也不能直接访问到，就是访问不到
+  //且setup中的this是undefined的，setup中没有this的概念
   
 
 </script>
