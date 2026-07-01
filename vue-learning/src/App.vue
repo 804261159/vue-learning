@@ -8,9 +8,10 @@
     <!-- 导航区 -->
      <div class="navigate">
       <!-- 使用RouterLink将对应路由关系展示出来 -->
+       <!-- to有两种写法，一种直接写，一种是对象 -->
       <RouterLink to="/home" active-class="active" >首页</RouterLink>
-      <RouterLink to="/news" active-class="active" >新闻</RouterLink>
-      <RouterLink to="/about" active-class="active" >关于</RouterLink>
+      <RouterLink :to="{name:'xinwen'}" active-class="active" >新闻</RouterLink>
+      <RouterLink :to="{path:'/about'}" active-class="active" >关于</RouterLink>
      </div>
     <!-- 展示区 -->
      <div class="main-content">
