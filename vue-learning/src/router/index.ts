@@ -3,9 +3,9 @@
 //第一步：引入createRouter
 import {createRouter,createWebHashHistory} from 'vue-router'
 //引入一个一个的路由组件
-import Home from '@/components/Home.vue'
-import News from '@/components/News.vue'
-import About from '@/components/About.vue'
+import Home from '@/pages/Home.vue'
+import News from '@/pages/News.vue'
+import About from '@/pages/About.vue'
 
 
 
