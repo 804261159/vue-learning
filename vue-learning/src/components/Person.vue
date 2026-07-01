@@ -13,7 +13,7 @@
   //   brand:'宝马',
   //   price:100,
   // })
-  let car = ref({
+  let car = reactive({
     brand:'宝马',
     price:100,
   })
@@ -32,12 +32,24 @@
     name.value = '李四'
   }
   function changeCarPrice() {
-    car.value.price += 10;
+    car.price += 10;
   }
   function changeFirstGame() {
     games.value[0].name = '原神'
   }
+  //当使用ref包裹对象类型数据时，改变对象的属性值是响应式的，但是改变对象的引用地址不是响应式的
 
+  //当使用reactive包裹对象类型数据时，你想去直接替换对象是不行的，因为把原始数据更改了，即使你赋值一个reactive的对象也不会改变原始数据的引用地址，所以不会触发响应式更新
+  //但是如果你想去改变对象的属性值是可以的，因为reactive是深层次的响应式，所以改变对象的属性值是响应式的
+  //如果你就是想重新赋值一个对象，那么你可以使用Object.assign()方法去改变原始数据的属性值，这样就不会改变原始数据的引用地址，所以会触发响应式更新
+  //Object.assign方法是属于浅拷贝而不是深拷贝
+  function changeCar() {
+    Object.assign(car, {
+      brand:'奔驰',
+      price:200,
+    })
+  }
+  
 </script> 
 
 
@@ -53,10 +65,6 @@
     <button @click="changeCarPrice">更换价格</button>
     <br>
     <h1>游戏列表</h1>
-    <ul>
-      <li v-for="game in games" :key="game.id">{{ game.name }}</li>
-    </ul>
-    <button @click="changeFirstGame">更换第一个游戏</button>
   </div>
 </template>
 
