@@ -51,6 +51,10 @@ const router = createRouter({
       name:'guanyu',
       path:'/about',     //配置对应组件页面的路径
       component:About    //配置对应组件
+    },
+    {                   //重定向，让指定的路径重新定位到另一个路径
+      path:'/',
+      redirect:'/home'
     }
   ]
 })
